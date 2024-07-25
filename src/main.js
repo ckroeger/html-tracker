@@ -5,6 +5,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 if (navigator.geolocation) {
   var marker, circle;
+  var fitBounds = false;
   setInterval(() => {
     navigator.geolocation.getCurrentPosition(onLocationFound);
   }, 2500);
@@ -23,6 +24,10 @@ if (navigator.geolocation) {
       radius: position.coords.accuracy,
     });
     var featureGroup = L.featureGroup([marker, circle]).addTo(map);
-    map.fitBounds(featureGroup.getBounds());
+    if (!fitBounds) {
+      console.log("fitBounds");
+      fitBounds = true;
+      map.fitBounds(featureGroup.getBounds());
+    }
   }
 }
